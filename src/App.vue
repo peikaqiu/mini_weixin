@@ -1,31 +1,33 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div v-if="isAjax">请求中</div>
+    <div v-else>
+      <router-view/>
+      <div class="tabbar">
+        <BottomTab></BottomTab>
+      </div>
     </div>
-    <router-view/>
   </div>
 </template>
 
+<script>
+  import BottomTab from './components/BottomTab'
+  import {mapState} from 'vuex'
+  import ChatView from "./views/CharView/ChatView";
+  export default{
+      computed:mapState(['isAjax']),
+      components:{
+        ChatView,
+        BottomTab
+      }
+  }
+</script>
+
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
+  .tabbar{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+  }
 </style>
